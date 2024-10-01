@@ -6,6 +6,9 @@ import PackageDescription
 let package = Package(
     name: "CSEKit",
     platforms: [.macOS(.v12)],
+    dependencies: [
+        .package(url: "https://github.com/swiftlang/swift-docc-plugin", from: "1.1.0")
+    ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
