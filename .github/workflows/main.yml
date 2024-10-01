@@ -17,13 +17,15 @@ concurrency:
 jobs:
   docs:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        swift: ["5", "6"]
     steps:
       - uses: actions/checkout@v4
       - name: Set up Pages
         uses: actions/configure-pages@v2
       - name: Set up Swift
-        uses: swift-actions/setup-swift@v2.1.0
+        uses: NeedleInAJayStack/setup-swift@4e17dcd69a660eea371d715802c219601e76f50a
         with:
           swift-version: ${{ matrix.swift }}
       - name: Generate Docs
@@ -40,9 +42,6 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        swift: ["5", "6"]
     needs: docs  
     environment:
       name: github-pages
