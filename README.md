@@ -11,3 +11,5 @@ CSEKit is a Swift JSON library interpretation of the Google Custom Search Engine
 ## To-do
 
 - Pagination
+
+### [Documentation](https://csekit.ot12oneday.live/documentation/csekit/)
