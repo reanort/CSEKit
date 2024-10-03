@@ -43,14 +43,14 @@ public extension CSEQuery {
         case zh_cn = "lang_zh-CN"
         case zh_tw = "lang_zh-TW"
         
-        private static let allowed: Set<CountryCode> = [
+        private static let allowed: Set<LangCode> = [
             .ar, .bg, .ca, .cs, .da, .de, .el, .en, .es, .et, .fi, .fr,
             .hr, .hu, .id, .is, .it, .iw, .ja, .ko, .lt, .lv, .nl, .pl,
             .pt, .ro, .ru, .sk, .sl, .sr, .sw, .tr, .zh, .zh_cn, .zh_tw
         ]
         
         // Function to return a language code based on the country code
-        public static func from(countryCode: CountryCode) -> LanguageCode? {
+        public static func from(countryCode: LangCode) -> LanguageCode? {
             guard allowed.contains(countryCode) else { return nil }
             let rawCode = "lang_" + countryCode.rawValue.replacingOccurrences(of: "-", with: "_")
             return LanguageCode(rawValue: rawCode)
