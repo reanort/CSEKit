@@ -6,7 +6,7 @@
 //
 
 public extension CSEQuery {
-    enum CountryCode: String, Codable, Sendable {
+    enum LangCode: String, Codable, Sendable {
         case zu
         case af
         case sq

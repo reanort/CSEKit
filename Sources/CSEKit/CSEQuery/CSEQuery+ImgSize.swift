@@ -14,5 +14,6 @@ public extension CSEQuery {
         case small
         case xlarge
         case xxlarge
+        case imgSizeUndefined
     }
 }

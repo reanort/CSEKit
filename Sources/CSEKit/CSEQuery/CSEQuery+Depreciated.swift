@@ -11,6 +11,7 @@ public extension CSEQuery {
     @available(*, deprecated, renamed: "gl", message: "Deprecated. Use the gl parameter for a similar effect.")
     nonisolated(unsafe) private static var _googlehost: String? = nil
     @available(*, deprecated, renamed: "gl", message: "Deprecated. Use the gl parameter for a similar effect.")
+    /// The local Google domain (for example, google.com, google.de, or google.fr) to use to perform the search.
     var googlehost: String? {
         get {
             return CSEQuery._googlehost

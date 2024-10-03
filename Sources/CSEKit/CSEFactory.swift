@@ -11,7 +11,7 @@ import Foundation
 import AppKit
 #endif
 
-public struct CSEFactory : ~Copyable{
+public struct CSEFactory : ~Copyable {
     @MainActor static private var sURL = "https://customsearch.googleapis.com/customsearch/v1"
     var api: String
     var engineID: String
@@ -46,8 +46,10 @@ public struct CSEFactory : ~Copyable{
                 try await cseSearch.downloadImages()
 #if canImport(AppKit)
                 NSApplication.shared.terminate(1)
+#elseif os(iOS)
+                exit(1)
 #else
-                Process.terminate(Process.init())
+                abort()
 #endif
                 
             } catch {
@@ -100,4 +102,3 @@ public struct CSEFactory : ~Copyable{
         return finalURL
     }
 }
-

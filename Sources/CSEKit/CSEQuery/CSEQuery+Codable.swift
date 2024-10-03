@@ -5,6 +5,8 @@
 //  Created by Christian Norton on 9/30/24.
 //
 
+import UniformTypeIdentifiers
+
 public extension CSEQuery {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -55,7 +57,7 @@ public extension CSEQuery {
             )
         exactTerms = try container.decodeIfPresent(String.self, forKey: .exactTerms)
         excludeTerms = try container.decodeIfPresent(String.self, forKey: .excludeTerms)
-        fileType = try container.decodeIfPresent(String.self, forKey: .fileType)
+        fileType = try container.decodeIfPresent(UTType.self, forKey: .fileType)
         filter = try container.decodeIfPresent(SecretBoolean.self, forKey: .filter)
         gl = try container.decodeIfPresent(CSEQuery.CountryCode.self, forKey: .gl)
         googlehost = try container.decodeIfPresent(String.self, forKey: .googlehost)
