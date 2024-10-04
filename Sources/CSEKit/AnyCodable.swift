@@ -8,7 +8,7 @@
 import Foundation
 
 public struct AnyCodable: Codable, Sendable {
-    let value: SendableCodableValue
+    public let value: SendableCodableValue
 
     public init<T: Sendable & Codable>(_ value: T) {
         self.value = SendableCodableValue(value)
