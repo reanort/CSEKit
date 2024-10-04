@@ -121,7 +121,7 @@ public struct CSESearch: Sendable {
     }
 }
 
-public struct CSEResponse: Codable {
+public struct CSEResponse: Codable, Sendable {
     let kind: String?
     let url: Url?
     let queries: Queries?

@@ -7,50 +7,78 @@
 
 import Foundation
 
-public struct AnyCodable: Codable {
-    let value: Any
-    
-    init(_ value: Any) {
-        self.value = value
+public struct AnyCodable: Codable, Sendable {
+    let value: SendableCodableValue
+
+    public init<T: Sendable & Codable>(_ value: T) {
+        self.value = SendableCodableValue(value)
     }
-    
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        
+
         if let stringValue = try? container.decode(String.self) {
-            value = stringValue
+            value = .string(stringValue)
         } else if let intValue = try? container.decode(Int.self) {
-            value = intValue
+            value = .int(intValue)
         } else if let doubleValue = try? container.decode(Double.self) {
-            value = doubleValue
+            value = .double(doubleValue)
         } else if let boolValue = try? container.decode(Bool.self) {
-            value = boolValue
+            value = .bool(boolValue)
         } else if let arrayValue = try? container.decode([AnyCodable].self) {
-            value = arrayValue.map { $0.value }
+            value = .array(arrayValue)
         } else if let dictValue = try? container.decode([String: AnyCodable].self) {
-            value = dictValue.mapValues { $0.value }
+            value = .dictionary(dictValue)
         } else {
             throw DecodingError.dataCorruptedError(in: container, debugDescription: "Unsupported type")
         }
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
-        
-        if let stringValue = value as? String {
-            try container.encode(stringValue)
-        } else if let intValue = value as? Int {
-            try container.encode(intValue)
-        } else if let doubleValue = value as? Double {
-            try container.encode(doubleValue)
-        } else if let boolValue = value as? Bool {
-            try container.encode(boolValue)
-        } else if let arrayValue = value as? [Any] {
-            try container.encode(arrayValue.map { AnyCodable($0) })
-        } else if let dictValue = value as? [String: Any] {
-            try container.encode(dictValue.mapValues { AnyCodable($0) })
-        } else {
-            throw EncodingError.invalidValue(value, EncodingError.Context(codingPath: encoder.codingPath, debugDescription: "Unsupported type"))
+
+        switch value {
+        case .string(let value):
+            try container.encode(value)
+        case .int(let value):
+            try container.encode(value)
+        case .double(let value):
+            try container.encode(value)
+        case .bool(let value):
+            try container.encode(value)
+        case .array(let value):
+            try container.encode(value)
+        case .dictionary(let value):
+            try container.encode(value)
+        }
+    }
+}
+
+public enum SendableCodableValue: Sendable, Codable {
+    case string(String)
+    case int(Int)
+    case double(Double)
+    case bool(Bool)
+    case array([AnyCodable])
+    case dictionary([String: AnyCodable])
+
+    // Convenience initializer for Codable values
+    public init<T: Codable & Sendable>(_ value: T) {
+        switch value {
+        case let value as String:
+            self = .string(value)
+        case let value as Int:
+            self = .int(value)
+        case let value as Double:
+            self = .double(value)
+        case let value as Bool:
+            self = .bool(value)
+        case let value as [AnyCodable]:
+            self = .array(value)
+        case let value as [String: AnyCodable]:
+            self = .dictionary(value)
+        default:
+            fatalError("Unsupported type") // Optionally handle unsupported types
         }
     }
 }

@@ -102,8 +102,87 @@ public extension CSEQuery {
             case _tw = "zh-TW"
         }
         public enum CodingKeys: String, CodingKey {
+            case zu
+            case af
+            case sq
+            case sm
+            case ar
+            case az
+            case eu
+            case be
+            case bn
+            case bh
+            case bs
+            case bg
+            case ca
+            case hr
+            case cs
+            case da
+            case nl
+            case en
+            case eo
+            case et
+            case fo
+            case fi
+            case fr
+            case fy
+            case gl
+            case ka
+            case de
+            case el
+            case gu
+            case iw
+            case hi
+            case hu
+            case `is` = "is"
+            case id
+            case ia
+            case ga
+            case it
+            case ja
+            case jw
+            case kn
+            case ko
+            case la
+            case lv
+            case lt
+            case mk
+            case ms
+            case ml
+            case mt
+            case mr
+            case ne
+            case no
+            case nn
+            case oc
+            case fa
+            case pl
+            case pt = "pt-BR"
+            case pa
+            case ro
+            case ru
+            case gd
+            case sr
+            case si
+            case sk
+            case sl
+            case es
+            case su
+            case sw
+            case sv
+            case tl
+            case ta
+            case te
+            case th
+            case ti
+            case tr
+            case uk
+            case ur
+            case uz
+            case vi
+            case cy
+            case xh
             case zh = "zh-CN"
         }
-        
     }
 }

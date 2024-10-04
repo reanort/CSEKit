@@ -102,3 +102,102 @@ public struct CSEFactory : ~Copyable {
         return finalURL
     }
 }
+
+struct downloader {
+    let customQuery: CSEQuery
+    
+    let apiURL: String
+    
+    var results: [CSEResult]?
+    
+    var queryURL: String?
+    
+    func fetchURLS() {
+        if let url = URL(string: addToEngine(customQuery)) {
+            var request: URLRequest = URLRequest(url: url)
+            request.httpMethod = "GET"
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                guard let data = data else {
+                    print("Error with Data! "+"\(String(describing: error))")
+                    return
+                }
+                guard let response = response else {
+                    print("Error with Response! "+"\(String(describing:error))")
+                    return
+                }
+                
+                print(data,response)
+                
+                do {
+                    let json = try JSONDecoder().decode(CSEResult.self, from: data)
+                    print(json)
+                	} catch {
+                        print(error)
+                    }
+                }
+            }
+        }
+        
+    
+    func addToEngine(_ query: CSEQuery) -> String {
+        var components = [String]()
+
+        // Explicitly declare the type of tuples as (String, String?)
+        let keyValuePairs = [
+            ("key", query.key),
+            ("cx", query.cx),
+            ("q", query.q),
+            ("c2coff", query.c2coff),
+            ("cr", query.cr),
+            ("dateRestrict", query.dateRestrict),
+            ("exactTerms", query.exactTerms),
+            ("excludeTerms", query.excludeTerms),
+            ("fileType", query.fileType),
+            ("filter", query.filter),
+            ("gl", query.gl),
+            ("googlehost", query.googlehost),
+            ("relatedSite", query.relatedSite),
+            ("highRange", query.highRange),
+            ("lowRange", query.lowRange),
+            ("hl", query.hl),
+            ("hq", query.hq),
+            ("imgColorType", query.imgColorType),
+            ("imgDominantColor", query.imgDominantColor),
+            ("imgSize", query.imgSize),
+            ("imgType", query.imgType),
+            ("linkSite", query.linkSite),
+            ("lr", query.lr),
+            ("num", query.num),
+            ("orTerms", query.orTerms),
+            ("rights", query.rights),
+            ("safe", query.safe),
+            ("searchType", query.searchType),
+            ("siteSearchFilter", query.siteSearchFilter),
+            ("sort", query.sort),
+            ("start", query.start)
+        ] as [(String,Any?)]
+
+        // Iterate over the key-value pairs and construct the components
+        for (key, value) in keyValuePairs {
+            if let value = value {
+                components.append("\(key)=\(value)")
+            }
+        }
+
+        let finalURL = "\(String(describing: apiURL))?\(components.joined(separator: "&"))"
+        return finalURL
+    }
+    
+    
+    init(_ customQuery: CSEQuery) {
+        self.customQuery = customQuery
+        self.apiURL = "https://customsearch.googleapis.com/customsearch/v1"
+    }
+    
+    init(_ customQuery: CSEQuery, _ URL: String = "https://customsearch.googleapis.com/customsearch/v1") {
+        self.customQuery = customQuery
+        self.apiURL = URL
+    }
+}
+
