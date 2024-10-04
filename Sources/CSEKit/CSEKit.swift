@@ -171,16 +171,16 @@ public struct CSEResponse: Codable, Sendable {
 
 public struct CSEResult: Codable, Sendable{
     let kind: String?
-    let title: String?
+    public let title: String?
     let htmlTitle: String?
-    let link: String?
+    public let link: String?
     let displayLink: String?
     let snippet: String?
     let htmlSnippet: String?
     let cacheId: String?
     let formattedUrl: String?
     let htmlFormattedUrl: String?
-    let pagemap: Dictionary<String, AnyCodable>?
+    public let pagemap: Dictionary<String, AnyCodable>?
     let mime: String?
     let fileFormat: String?
     let image: Image?
