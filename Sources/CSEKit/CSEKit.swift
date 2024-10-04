@@ -122,14 +122,14 @@ public struct CSESearch: Sendable {
 }
 
 public struct CSEResponse: Codable, Sendable {
-    let kind: String?
+    public let kind: String?
     let url: Url?
     let queries: Queries?
     let promotions: [Promotion]?
-    let context: Dictionary<String, AnyCodable>?
+    public let context: Dictionary<String, AnyCodable>?
     let searchInformation: SearchInformation?
     let spelling: Spelling?
-    let items: [CSEResult]?
+    public let items: [CSEResult]?
     
     struct Url: Codable {
         let type: String?
