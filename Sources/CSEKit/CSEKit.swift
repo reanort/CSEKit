@@ -180,7 +180,7 @@ public struct CSEResult: Codable, Sendable{
     let cacheId: String?
     let formattedUrl: String?
     let htmlFormattedUrl: String?
-    let pagemap: String?
+    let pagemap: Dictionary<String, AnyCodable>?
     let mime: String?
     let fileFormat: String?
     let image: Image?
