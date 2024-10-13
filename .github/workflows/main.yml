@@ -1,5 +1,7 @@
 name: Swift DocC Action
 
+runs-on: self-hosted
+
 on:
   push:
     branches:
