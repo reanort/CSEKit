@@ -1,7 +1,5 @@
 name: Swift DocC Action
 
-runs-on: self-hosted
-
 on:
   push:
     branches:
@@ -18,7 +16,7 @@ concurrency:
 
 jobs:
   docs:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
       matrix:
         swift: ["6"]
